@@ -1,0 +1,463 @@
+pyykonee@fuxi16:~/Projektit/ratebeer$ rails c
+Running via Spring preloader in process 3692
+Loading development environment (Rails 5.2.1)
+[1] pry(main)> Brewery.all
+  Brewery Load (0.4ms)  SELECT "breweries".* FROM "breweries"
+=> [#<Brewery:0x0000560c2ec69810
+  id: 1,
+  name: "Koff",
+  year: 1897,
+  created_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00>,
+ #<Brewery:0x0000560c2ec5e820
+  id: 2,
+  name: "Malmgard",
+  year: 2001,
+  created_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00>,
+ #<Brewery:0x0000560c2ec4f9d8
+  id: 3,
+  name: "Weihenstephaner",
+  year: 1040,
+  created_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00>]
+[2] pry(main)> Brewery.create name:"Punk IPA", style:"IPA"
+ActiveModel::UnknownAttributeError: unknown attribute 'style' for Brewery.
+from /home/pyykonee/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activemodel-5.2.1/lib/active_model/attribute_assignment.rb:53:in `_assign_attribute'
+[3] pry(main)> Brewery.create name:"BrewDog", year:2007
+   (0.3ms)  begin transaction
+  Brewery Create (1.4ms)  INSERT INTO "breweries" ("name", "year", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "BrewDog"], ["year", 2007], ["created_at", "2018-09-11 16:59:04.842337"], ["updated_at", "2018-09-11 16:59:04.842337"]]
+   (34.8ms)  commit transaction
+=> #<Brewery:0x0000560c2e655d70
+ id: 8,
+ name: "BrewDog",
+ year: 2007,
+ created_at: Tue, 11 Sep 2018 16:59:04 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 16:59:04 UTC +00:00>
+[4] pry(main)> Beer.create name:"Punk IPA", style:"IPA"
+   (0.1ms)  begin transaction
+   (0.1ms)  rollback transaction
+=> #<Beer:0x0000560c2fab1a30
+ id: nil,
+ name: "Punk IPA",
+ style: "IPA",
+ brewery_id: nil,
+ created_at: nil,
+ updated_at: nil>
+[5] pry(main)> panimo = Brewery.where name:"BrewDog"
+  Brewery Load (0.6ms)  SELECT "breweries".* FROM "breweries" WHERE "breweries"."name" = ?  [["name", "BrewDog"]]
+=> [#<Brewery:0x00007f7204090448
+  id: 8,
+  name: "BrewDog",
+  year: 2007,
+  created_at: Tue, 11 Sep 2018 16:59:04 UTC +00:00,
+  updated_at: Tue, 11 Sep 2018 16:59:04 UTC +00:00>]
+[6] pry(main)> Brewery.all
+  Brewery Load (0.4ms)  SELECT "breweries".* FROM "breweries"
+=> [#<Brewery:0x0000560c2f3cb8b0
+  id: 1,
+  name: "Koff",
+  year: 1897,
+  created_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00>,
+ #<Brewery:0x0000560c2f3cb608
+  id: 2,
+  name: "Malmgard",
+  year: 2001,
+  created_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00>,
+ #<Brewery:0x0000560c2f3cb4a0
+  id: 3,
+  name: "Weihenstephaner",
+  year: 1040,
+  created_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00>,
+ #<Brewery:0x0000560c2f3cb338
+  id: 8,
+  name: "BrewDog",
+  year: 2007,
+  created_at: Tue, 11 Sep 2018 16:59:04 UTC +00:00,
+[7] pry(main)> Beer.all
+  Beer Load (0.8ms)  SELECT "beers".* FROM "beers"
+=> [#<Beer:0x0000560c2e4cf488
+  id: 1,
+  name: "Iso 3",
+  style: "Lager",
+  brewery_id: 1,
+  created_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00>,
+ #<Beer:0x0000560c2e4cf168
+  id: 2,
+  name: "Karhu",
+  style: "Lager",
+  brewery_id: 1,
+  created_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00>,
+ #<Beer:0x0000560c2e4ce7b8
+  id: 3,
+  name: "Tuplahumala",
+  style: "Lager",
+  brewery_id: 1,
+  created_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00>,
+ #<Beer:0x0000560c2e4ce510
+  id: 4,
+  name: "Huvila Pale Ale",
+  style: "Pale Ale",
+  brewery_id: 2,
+  created_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00>,
+ #<Beer:0x0000560c2e4ce240
+  id: 5,
+  name: "X Porter",
+  style: "Porter",
+  brewery_id: 2,
+  created_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00>,
+ #<Beer:0x0000560c2e4cde58
+  id: 6,
+  name: "Hefeweizen",
+  style: "Weizen",
+  brewery_id: 3,
+  created_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00>,
+ #<Beer:0x0000560c2e4cdc28
+  id: 7,
+  name: "Helles",
+  style: "Lager",
+  brewery_id: 3,
+  created_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 17:49:19 UTC +00:00>,
+ #<Beer:0x0000560c2e4cd868
+  id: 8,
+  name: "Lite",
+  style: "Lager",
+  brewery_id: 1,
+  created_at: Tue, 04 Sep 2018 18:37:38 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 18:37:38 UTC +00:00>,
+ #<Beer:0x0000560c2e4cd3b8
+  id: 9,
+  name: "APA IPA",
+  style: "IPA",
+  brewery_id: 1,
+  created_at: Tue, 04 Sep 2018 18:38:58 UTC +00:00,
+  updated_at: Tue, 04 Sep 2018 18:38:58 UTC +00:00>]
+[8] pry(main)> Beer.create name:"Nanny State", style:"lowalcohol"
+   (0.2ms)  begin transaction
+   (0.2ms)  rollback transaction
+=> #<Beer:0x0000560c2f6cfa98
+ id: nil,
+ name: "Nanny State",
+ style: "lowalcohol",
+ brewery_id: nil,
+ created_at: nil,
+ updated_at: nil>
+[9] pry(main)> g.errors.messages
+NameError: undefined local variable or method `g' for main:Object
+from (pry):9:in `__pry__'
+[10] pry(main)> olut = Beer.new name:"Nanny State", style:"lowalcohol"
+=> #<Beer:0x0000560c2f942b68
+ id: nil,
+ name: "Nanny State",
+ style: "lowalcohol",
+ brewery_id: nil,
+ created_at: nil,
+ updated_at: nil>
+[11] pry(main)> olut
+=> #<Beer:0x0000560c2f942b68
+ id: nil,
+ name: "Nanny State",
+ style: "lowalcohol",
+ brewery_id: nil,
+ created_at: nil,
+ updated_at: nil>
+[12] pry(main)> olut.errors.messages
+=> {}
+[13] pry(main)> @olut.errors
+NoMethodError: undefined method `errors' for nil:NilClass
+from (pry):13:in `__pry__'
+[14] pry(main)> olut.brewery = panimo
+ActiveRecord::AssociationTypeMismatch: Brewery(#47305165764260) expected, got #<ActiveRecord::Relation [#<Brewery id: 8, name: "BrewDog", year: 2007, created_at: "2018-09-11 16:59:04", updated_at: "2018-09-11 16:59:04">]> which is an instance of Brewery::ActiveRecord_Relation(#47305165762220)
+from /home/pyykonee/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.1/lib/active_record/associations/association.rb:238:in `raise_on_type_mismatch!'
+[15] pry(main)> olut
+=> #<Beer:0x0000560c2f942b68
+ id: nil,
+ name: "Nanny State",
+ style: "lowalcohol",
+ brewery_id: nil,
+ created_at: nil,
+ updated_at: nil>
+[16] pry(main)> panimo
+=> [#<Brewery:0x00007f7204090448
+  id: 8,
+  name: "BrewDog",
+  year: 2007,
+  created_at: Tue, 11 Sep 2018 16:59:04 UTC +00:00,
+  updated_at: Tue, 11 Sep 2018 16:59:04 UTC +00:00>]
+[17] pry(main)> Beer.create name:"Punk IPA", style:"IPA", brewery_id:panimo.id
+NoMethodError: undefined method `id' for #<Brewery::ActiveRecord_Relation:0x0000560c2f624238>
+Did you mean?  ids
+from /home/pyykonee/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.1/lib/active_record/relation/delegation.rb:95:in `method_missing'
+[18] pry(main)> panimo
+=> [#<Brewery:0x00007f7204090448
+  id: 8,
+  name: "BrewDog",
+  year: 2007,
+  created_at: Tue, 11 Sep 2018 16:59:04 UTC +00:00,
+  updated_at: Tue, 11 Sep 2018 16:59:04 UTC +00:00>]
+[19] pry(main)> Beer.create name:"Punk IPA", style:"IPA", brewery_id:panimo.id
+NoMethodError: undefined method `id' for #<Brewery::ActiveRecord_Relation:0x0000560c2f624238>
+Did you mean?  ids
+from /home/pyykonee/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.1/lib/active_record/relation/delegation.rb:95:in `method_missing'
+[20] pry(main)> Beer.create name:"Punk IPA", style:"IPA", brewery_id:panimo
+   (0.2ms)  begin transaction
+   (0.3ms)  rollback transaction
+=> #<Beer:0x0000560c2f6b0170
+ id: nil,
+ name: "Punk IPA",
+ style: "IPA",
+ brewery_id: nil,
+ created_at: nil,
+ updated_at: nil>
+[21] pry(main)> Beer.create name:"Punk IPA", style:"IPA", brewery_id:Brewery.last.id
+  Brewery Load (0.7ms)  SELECT  "breweries".* FROM "breweries" ORDER BY "breweries"."id" DESC LIMIT ?  [["LIMIT", 1]]
+   (0.2ms)  begin transaction
+  Brewery Load (0.2ms)  SELECT  "breweries".* FROM "breweries" WHERE "breweries"."id" = ? LIMIT ?  [["id", 8], ["LIMIT", 1]]
+  Beer Create (0.3ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "Punk IPA"], ["style", "IPA"], ["brewery_id", 8], ["created_at", "2018-09-11 17:20:26.722523"], ["updated_at", "2018-09-11 17:20:26.722523"]]
+   (13.9ms)  commit transaction
+=> #<Beer:0x0000560c2f5430a8
+ id: 13,
+ name: "Punk IPA",
+ style: "IPA",
+ brewery_id: 8,
+ created_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00>
+[22] pry(main)> Beer.create name:"Nanny State", style:"lowalcohol", brewery_id:Brewery.last.id
+  Brewery Load (0.4ms)  SELECT  "breweries".* FROM "breweries" ORDER BY "breweries"."id" DESC LIMIT ?  [["LIMIT", 1]]
+   (0.3ms)  begin transaction
+  Brewery Load (0.4ms)  SELECT  "breweries".* FROM "breweries" WHERE "breweries"."id" = ? LIMIT ?  [["id", 8], ["LIMIT", 1]]
+  Beer Create (1.0ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "Nanny State"], ["style", "lowalcohol"], ["brewery_id", 8], ["created_at", "2018-09-11 17:21:57.059499"], ["updated_at", "2018-09-11 17:21:57.059499"]]
+   (15.4ms)  commit transaction
+=> #<Beer:0x0000560c2ebcb4f8
+ id: 14,
+ name: "Nanny State",
+ style: "lowalcohol",
+ brewery_id: 8,
+ created_at: Tue, 11 Sep 2018 17:21:57 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:21:57 UTC +00:00>
+[23] pry(main)> olut
+=> #<Beer:0x0000560c2f942b68
+ id: nil,
+ name: "Nanny State",
+ style: "lowalcohol",
+ brewery_id: nil,
+ created_at: nil,
+ updated_at: nil>
+[24] pry(main)> olut = Beer.last
+  Beer Load (0.6ms)  SELECT  "beers".* FROM "beers" ORDER BY "beers"."id" DESC LIMIT ?  [["LIMIT", 1]]
+=> #<Beer:0x0000560c2e673fa0
+ id: 14,
+ name: "Nanny State",
+ style: "lowalcohol",
+ brewery_id: 8,
+ created_at: Tue, 11 Sep 2018 17:21:57 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:21:57 UTC +00:00>
+[25] pry(main)> olut.ratings.create score:7
+   (0.1ms)  begin transaction
+  Rating Create (0.3ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 7], ["beer_id", 14], ["created_at", "2018-09-11 17:26:51.493706"], ["updated_at", "2018-09-11 17:26:51.493706"]]
+   (20.4ms)  commit transaction
+=> #<Rating:0x0000560c2d220cd8
+ id: 4,
+ score: 7,
+ beer_id: 14,
+ created_at: Tue, 11 Sep 2018 17:26:51 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:26:51 UTC +00:00>
+[26] pry(main)> olut.ratings.create score:3
+   (0.3ms)  begin transaction
+  Rating Create (0.9ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 3], ["beer_id", 14], ["created_at", "2018-09-11 17:26:55.980711"], ["updated_at", "2018-09-11 17:26:55.980711"]]
+   (21.7ms)  commit transaction
+=> #<Rating:0x0000560c2f9e7ed8
+ id: 5,
+ score: 3,
+ beer_id: 14,
+ created_at: Tue, 11 Sep 2018 17:26:55 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:26:55 UTC +00:00>
+[27] pry(main)> olut.ratings.create score:1
+   (0.2ms)  begin transaction
+  Rating Create (0.8ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 1], ["beer_id", 14], ["created_at", "2018-09-11 17:26:58.535801"], ["updated_at", "2018-09-11 17:26:58.535801"]]
+   (15.4ms)  commit transaction
+=> #<Rating:0x0000560c2f926f08
+ id: 6,
+ score: 1,
+ beer_id: 14,
+ created_at: Tue, 11 Sep 2018 17:26:58 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:26:58 UTC +00:00>
+[28] pry(main)> IPA = Beer.where name:"Punk IPA"
+  Beer Load (0.7ms)  SELECT "beers".* FROM "beers" WHERE "beers"."name" = ?  [["name", "Punk IPA"]]
+=> [#<Beer:0x0000560c2f81a420
+  id: 13,
+  name: "Punk IPA",
+  style: "IPA",
+  brewery_id: 8,
+  created_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00,
+  updated_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00>]
+[29] pry(main)> IPA.ratings.create score:30
+NoMethodError: undefined method `ratings' for #<Beer::ActiveRecord_Relation:0x0000560c2f8211a8>
+from /home/pyykonee/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.1/lib/active_record/relation/delegation.rb:95:in `method_missing'
+[30] pry(main)> Beer.last
+  Beer Load (0.4ms)  SELECT  "beers".* FROM "beers" ORDER BY "beers"."id" DESC LIMIT ?  [["LIMIT", 1]]
+=> #<Beer:0x00007f72042e6828
+ id: 14,
+ name: "Nanny State",
+ style: "lowalcohol",
+ brewery_id: 8,
+ created_at: Tue, 11 Sep 2018 17:21:57 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:21:57 UTC +00:00>
+[31] pry(main)> IPA
+=> [#<Beer:0x0000560c2f81a420
+  id: 13,
+  name: "Punk IPA",
+  style: "IPA",
+  brewery_id: 8,
+  created_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00,
+  updated_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00>]
+[32] pry(main)> IPA.ratings.create score: 30
+NoMethodError: undefined method `ratings' for #<Beer::ActiveRecord_Relation:0x0000560c2f8211a8>
+from /home/pyykonee/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.1/lib/active_record/relation/delegation.rb:95:in `method_missing'
+[33] pry(main)> olut2 = Beer.where name:"Punk IPA"
+  Beer Load (0.4ms)  SELECT "beers".* FROM "beers" WHERE "beers"."name" = ?  [["name", "Punk IPA"]]
+=> [#<Beer:0x0000560c2f4b2cd8
+  id: 13,
+  name: "Punk IPA",
+  style: "IPA",
+  brewery_id: 8,
+  created_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00,
+  updated_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00>]
+[34] pry(main)> olut2.ratings.create score:30
+NoMethodError: undefined method `ratings' for #<Beer::ActiveRecord_Relation:0x0000560c2f4c3268>
+from /home/pyykonee/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.1/lib/active_record/relation/delegation.rb:95:in `method_missing'
+[35] pry(main)> olut2.ratings.create score:10
+NoMethodError: undefined method `ratings' for #<Beer::ActiveRecord_Relation:0x0000560c2f4c3268>
+from /home/pyykonee/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.1/lib/active_record/relation/delegation.rb:95:in `method_missing'
+[36] pry(main)> olut2.ratings.create score:1
+NoMethodError: undefined method `ratings' for #<Beer::ActiveRecord_Relation:0x0000560c2f4c3268>
+from /home/pyykonee/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.1/lib/active_record/relation/delegation.rb:95:in `method_missing'
+[37] pry(main)> Rating.all
+  Rating Load (0.7ms)  SELECT "ratings".* FROM "ratings"
+=> [#<Rating:0x0000560c2ea840e0
+  id: 1,
+  score: 10,
+  beer_id: 1,
+  created_at: Mon, 10 Sep 2018 12:38:46 UTC +00:00,
+  updated_at: Mon, 10 Sep 2018 12:38:46 UTC +00:00>,
+ #<Rating:0x0000560c2ea7bb98
+  id: 2,
+  score: 21,
+  beer_id: 1,
+  created_at: Mon, 10 Sep 2018 12:38:57 UTC +00:00,
+  updated_at: Mon, 10 Sep 2018 12:38:57 UTC +00:00>,
+ #<Rating:0x0000560c2ea7b7b0
+  id: 3,
+  score: 17,
+  beer_id: 1,
+  created_at: Mon, 10 Sep 2018 12:39:03 UTC +00:00,
+  updated_at: Mon, 10 Sep 2018 12:39:03 UTC +00:00>,
+ #<Rating:0x0000560c2ea7b3f0
+  id: 4,
+  score: 7,
+  beer_id: 14,
+  created_at: Tue, 11 Sep 2018 17:26:51 UTC +00:00,
+  updated_at: Tue, 11 Sep 2018 17:26:51 UTC +00:00>,
+ #<Rating:0x0000560c2ea7b1c0
+  id: 5,
+  score: 3,
+  beer_id: 14,
+  created_at: Tue, 11 Sep 2018 17:26:55 UTC +00:00,
+  updated_at: Tue, 11 Sep 2018 17:26:55 UTC +00:00>,
+ #<Rating:0x0000560c2ea7af68
+  id: 6,
+  score: 1,
+  beer_id: 14,
+  created_at: Tue, 11 Sep 2018 17:26:58 UTC +00:00,
+  updated_at: Tue, 11 Sep 2018 17:26:58 UTC +00:00>]
+[38] pry(main)> olut
+=> #<Beer:0x0000560c2e673fa0
+ id: 14,
+ name: "Nanny State",
+ style: "lowalcohol",
+ brewery_id: 8,
+ created_at: Tue, 11 Sep 2018 17:21:57 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:21:57 UTC +00:00>
+[39] pry(main)> olut2
+=> [#<Beer:0x0000560c2f4b2cd8
+  id: 13,
+  name: "Punk IPA",
+  style: "IPA",
+  brewery_id: 8,
+  created_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00,
+  updated_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00>]
+[40] pry(main)> olut.ratings.create score:10
+   (0.2ms)  begin transaction
+  Rating Create (2.7ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 10], ["beer_id", 14], ["created_at", "2018-09-11 17:32:08.782815"], ["updated_at", "2018-09-11 17:32:08.782815"]]
+   (21.3ms)  commit transaction
+=> #<Rating:0x0000560c2d3c6fd8
+ id: 7,
+ score: 10,
+ beer_id: 14,
+ created_at: Tue, 11 Sep 2018 17:32:08 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:32:08 UTC +00:00>
+[41] pry(main)> olut2.ratings.create score:10
+NoMethodError: undefined method `ratings' for #<Beer::ActiveRecord_Relation:0x0000560c2f4c3268>
+from /home/pyykonee/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.1/lib/active_record/relation/delegation.rb:95:in `method_missing'
+[42] pry(main)> olut2 = Beer.find name:"Punk IPA"
+  Beer Load (0.3ms)  SELECT  "beers".* FROM "beers" WHERE "beers"."id" IS NULL LIMIT ?  [["LIMIT", 1]]
+ActiveRecord::RecordNotFound: Couldn't find Beer with 'id'={:name=>"Punk IPA"}
+from /home/pyykonee/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/activerecord-5.2.1/lib/active_record/relation/finder_methods.rb:346:in `raise_record_not_found_exception!'
+[43] pry(main)> olut2 = Beer.find 13
+  Beer Load (0.9ms)  SELECT  "beers".* FROM "beers" WHERE "beers"."id" = ? LIMIT ?  [["id", 13], ["LIMIT", 1]]
+=> #<Beer:0x0000560c304f6d10
+ id: 13,
+ name: "Punk IPA",
+ style: "IPA",
+ brewery_id: 8,
+ created_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00>
+[44] pry(main)> olut2
+=> #<Beer:0x0000560c304f6d10
+ id: 13,
+ name: "Punk IPA",
+ style: "IPA",
+ brewery_id: 8,
+ created_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:20:26 UTC +00:00>
+[45] pry(main)> olut2.ratings.create score:10
+   (0.1ms)  begin transaction
+  Rating Create (0.4ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 10], ["beer_id", 13], ["created_at", "2018-09-11 17:35:32.750050"], ["updated_at", "2018-09-11 17:35:32.750050"]]
+   (13.5ms)  commit transaction
+=> #<Rating:0x0000560c30554708
+ id: 8,
+ score: 10,
+ beer_id: 13,
+ created_at: Tue, 11 Sep 2018 17:35:32 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:35:32 UTC +00:00>
+[46] pry(main)> olut2.ratings.create score:30
+   (0.1ms)  begin transaction
+  Rating Create (0.4ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 30], ["beer_id", 13], ["created_at", "2018-09-11 17:35:38.620167"], ["updated_at", "2018-09-11 17:35:38.620167"]]
+   (14.0ms)  commit transaction
+=> #<Rating:0x0000560c305aa630
+ id: 9,
+ score: 30,
+ beer_id: 13,
+ created_at: Tue, 11 Sep 2018 17:35:38 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:35:38 UTC +00:00>
+[47] pry(main)> olut2.ratings.create score:26
+   (0.1ms)  begin transaction
+  Rating Create (0.3ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 26], ["beer_id", 13], ["created_at", "2018-09-11 17:35:41.371057"], ["updated_at", "2018-09-11 17:35:41.371057"]]
+   (16.2ms)  commit transaction
+=> #<Rating:0x0000560c305f1d28
+ id: 10,
+ score: 26,
+ beer_id: 13,
+ created_at: Tue, 11 Sep 2018 17:35:41 UTC +00:00,
+ updated_at: Tue, 11 Sep 2018 17:35:41 UTC +00:00>
+[48] pry(main)> 
