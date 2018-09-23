@@ -52,14 +52,6 @@ class BreweriesController < ApplicationController
     end
   end
 
-
-
-  
-
-
-
-
-
   # DELETE /breweries/1
   # DELETE /breweries/1.json
   def destroy
@@ -74,19 +66,18 @@ class BreweriesController < ApplicationController
 
   def authenticate
     authenticate_or_request_with_http_basic do |username, password|
-      admin_accounts = {"erkka" => "kek", "tiera" => "boi", "kevin" => "boi", "admin" => "secret", "dmob" => "boi"} 
-      admin_accounts >= {username => password}
+      admin_accounts = { "erkka" => "kek", "tiera" => "boi", "kevin" => "boi", "admin" => "secret", "dmob" => "boi" }
+      admin_accounts >= { username => password }
     end
   end
 
+  # Use callbacks to share common setup or constraints between actions.
+  def set_brewery
+    @brewery = Brewery.find(params[:id])
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_brewery
-      @brewery = Brewery.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def brewery_params
-      params.require(:brewery).permit(:name, :year)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def brewery_params
+    params.require(:brewery).permit(:name, :year)
+  end
 end
