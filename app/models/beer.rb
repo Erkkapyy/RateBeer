@@ -1,5 +1,6 @@
 class Beer < ApplicationRecord
   validates :name, presence: true
+  validates :style, presence: true
 
   include Enumerable
   include RatingAverage

@@ -22,6 +22,15 @@
 <p> This user has no ratings! </p>
 <% end %>
 
+<p>
+  <% if @user.beer_clubs.any? %>
+    <strong>Member of: </strong>
+    <% @user.beer_clubs.each do |club| %>
+      <li> <%= link_to club.name, club %> </li>
+    <% end %>
+  <% end %>
+</p>
+
 <%= link_to 'Change password', edit_user_path(@user) %> |
 <td><%= link_to 'Delete account', @user, method: :delete, data: { confirm: 'Are you sure?' } %></td> |
 <%= link_to 'Back', users_path %>
