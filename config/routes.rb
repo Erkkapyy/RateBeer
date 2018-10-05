@@ -4,9 +4,12 @@ Rails.application.routes.draw do
   resources :users
   resources :beers
   resources :breweries
+  resources :places, only: [:index, :show]
   root 'breweries#index'
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'
+  get 'places', to: 'places#index'
+  post 'places', to:'places#search'
   delete 'signout', to: 'sessions#destroy'
   #get 'ratings', to: 'ratings#index'
   #get 'ratings/new', to:'ratings#new'
