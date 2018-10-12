@@ -14,6 +14,5 @@ class PlacesController < ApplicationController
   def show
     @place = BeermappingApi.get_place(params[:id])
     render :show
-
   end
 end

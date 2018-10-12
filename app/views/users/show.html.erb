@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"> </p>
 
 <h1>
   <strong><%= @user.username %></strong>
@@ -13,7 +13,7 @@
     <li>
       <%= rating %>
       <% if @user == current_user %>
-          <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger' %>
       <% end %>
     </li>
   <% end %>

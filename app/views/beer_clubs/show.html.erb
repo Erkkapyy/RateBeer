@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"> </p>
 
 <h2>
   <%= @beer_club.name %> <%= @beer_club.city %>
@@ -29,7 +29,7 @@
 <% if current_user.beer_clubs.exists?(@beer_club.id)%>
   <%= form_for(@membership, method: "delete") do |f| %>
   <%= f.hidden_field :beer_club_id %>
-  <%= f.submit value: "end the membership" %>
+  <%= f.submit value: "end the membership", class:'btn btn-danger' %>
   <% end %>
 <%end%>
 

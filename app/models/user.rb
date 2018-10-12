@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :beer_clubs, through: :memberships
   has_secure_password
 
+  scope :admin, -> { where admin: true }
+
   def favorite_beer
     return nil if ratings.empty?
 
